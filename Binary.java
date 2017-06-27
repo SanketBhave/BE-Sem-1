@@ -1,11 +1,12 @@
 import java.util.Scanner;
+import java.io.*;
 import java.util.Random;;
 
 class Search extends Sort{
 	int mid,key;
-	Random r;
+	
 	Search(){
-		int random=r.nextInt();
+		
 		System.out.println("Enter element to be searched");
 		key=Sort.sc.nextInt();
 		sc.close();
@@ -33,7 +34,7 @@ class Sort{
 	int partition,pivot;
 	
 	Sort(){
-		
+		  FileOutputStream out=new FileOutputStream("input.txt");
 		  System.out.println("Enter array elements");
 		  for(int i=0;i<10;i++)  
 		 	array[i]=sc.nextInt();
@@ -86,9 +87,23 @@ public class Binary {
  
 
 
-	 public static void main(String args[]){
+	 public static void main(String args[]) throws IOException{
 	 
 		 int pos;
+		 Random r=new Random();
+		 
+		 try{
+			 FileWriter out=new FileWriter("input.txt");
+			 for(int i=0;i<1000;i++){
+			 int random=r.nextInt();
+			 
+			 out.write(random);
+			 }
+			 out.close();
+			 
+		 }catch(Exception e){
+			 System.out.println(e);
+		 }
 		Search obj=new Search();
 		obj.print();
 		pos=obj.search(0, 9);
