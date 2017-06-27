@@ -4,11 +4,12 @@ import java.util.Random;;
 
 class Search extends Sort{
 	int mid,key;
+	Scanner sc=new Scanner(System.in);
 	
 	Search(){
 		
 		System.out.println("Enter element to be searched");
-		key=Sort.sc.nextInt();
+		key=sc.nextInt();
 		sc.close();
 	}
 	public int search(int low,int high){
@@ -28,18 +29,32 @@ class Search extends Sort{
 	}
 	
 }
-class Sort{
-	static int[] array=new int[10];
-	static Scanner sc=new Scanner(System.in);
+ class Sort{
+	static int[] array;
+	Random r=new Random();
 	int partition,pivot;
 	
 	Sort(){
-		  FileOutputStream out=new FileOutputStream("input.txt");
-		  System.out.println("Enter array elements");
-		  for(int i=0;i<10;i++)  
-		 	array[i]=sc.nextInt();
+		/*try{
+			File file = new File("input.txt");
+			byte[] bytes = new byte[(int) file.length()];
+			FileInputStream fis = new FileInputStream(file);
+			fis.read(bytes);
+			fis.close();
+			String[] valueStr = new String(bytes).trim().split("\\s+");
+			 array = new int[valueStr.length];
+			for (int i = 0; i < valueStr.length; i++) 
+			    array[i] = Integer.parseInt(valueStr[i]);
+			quickSort(0,valueStr.length);
+		}catch(Exception e){}*/
+		  /*System.out.println("Enter array elements");*/
+		array=new int[10];
+		  for(int i=0;i<10;i++){
+			 array[i]=r.nextInt(100);
+			 }
+		  quickSort(0,9);
 		  
-		 quickSort(0,9);
+		 
 	}
 
 	
@@ -51,7 +66,7 @@ class Sort{
 			
 		while(array[right]>pivot && right>=0){right--;}
 		
-		if(left>=right)
+		if(left>right)
 			break;
 		else{
 			temp=array[left];
@@ -63,7 +78,7 @@ class Sort{
 		temp=left;
 		left=right;
 		right=temp;
-		return left;
+		return left ;
 	}
 	public void quickSort(int left,int right)
 	 {
@@ -90,15 +105,20 @@ public class Binary {
 	 public static void main(String args[]) throws IOException{
 	 
 		 int pos;
-		 Random r=new Random();
+		// Random r=new Random();
+		// Scanner sc1=new Scanner(System.in);
+		/* System.out.println("Enter how many elements you want to search in:");
+		 int num=sc1.nextInt();
+		 sc1.close();*/
 		 
 		 try{
-			 FileWriter out=new FileWriter("input.txt");
-			 for(int i=0;i<1000;i++){
-			 int random=r.nextInt();
 			 
-			 out.write(random);
-			 }
+			 FileWriter out=new FileWriter("input.txt");
+			 //for(int i=0;i<1000;i++){
+			 //int random=
+			// System.out.print(r.nextInt(100));
+			 //out.write(random);
+			 //}
 			 out.close();
 			 
 		 }catch(Exception e){
@@ -112,4 +132,3 @@ public class Binary {
 	 }
 
 }
-
