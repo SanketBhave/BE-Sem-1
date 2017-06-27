@@ -4,16 +4,16 @@ import java.util.Random;;
 
 class Search extends Sort{
 	int mid,key;
-	Scanner sc=new Scanner(System.in);
+	//Scanner sc=new Scanner(System.in);
 	
 	Search(){
 		
-		System.out.println("Enter element to be searched");
-		key=sc.nextInt();
-		sc.close();
+	//	System.out.println("Enter element to be searched");
+		key=523;
+		//sc.close();
 	}
 	public int search(int low,int high){
-		mid=(low+high)/2;
+		/*mid=(low+high)/2;
 		if(Sort.array[mid]==key){
 			System.out.println("Element found at "+mid);
 			return mid;
@@ -25,17 +25,27 @@ class Search extends Sort{
 		{
 			search(mid+1,high);
 		}
+		return -1;*/
+		
+		while(low<high){
+			mid=(low+high)/2;
+			if(key==array[mid])
+				return mid;
+			else if(key<array[mid])
+				high=mid-1;
+			else
+				low=mid+1;
+		}
 		return -1;
 	}
 	
 }
  class Sort{
 	static int[] array;
-	Random r=new Random();
 	int partition,pivot;
 	
 	Sort(){
-		/*try{
+		try{
 			File file = new File("input.txt");
 			byte[] bytes = new byte[(int) file.length()];
 			FileInputStream fis = new FileInputStream(file);
@@ -45,55 +55,50 @@ class Search extends Sort{
 			 array = new int[valueStr.length];
 			for (int i = 0; i < valueStr.length; i++) 
 			    array[i] = Integer.parseInt(valueStr[i]);
-			quickSort(0,valueStr.length);
-		}catch(Exception e){}*/
+			quickSort(0,(valueStr.length-1));
+		}catch(Exception e){}
 		  /*System.out.println("Enter array elements");*/
-		array=new int[10];
-		  for(int i=0;i<10;i++){
+		  /*for(int i=0;i<10;i++){
 			 array[i]=r.nextInt(100);
-			 }
-		  quickSort(0,9);
+			 }*/
 		  
 		 
 	}
 
 	
-	public int sort(int low,int high,int pivot){
-		int temp;
-		int left=low,right=high;
-	  while (true){
-	  	while(array[left]<=pivot){left++;}
-			
-		while(array[right]>pivot && right>=0){right--;}
-		
-		if(left>right)
-			break;
-		else{
-			temp=array[left];
-			array[left]=array[right];
-			array[right]=temp;
-			}
-		
-	}
-		temp=left;
-		left=right;
-		right=temp;
-		return left ;
-	}
-	public void quickSort(int left,int right)
-	 {
-		 if(right-left<=0)
-			 return;
-		 else{
-		 pivot=array[right];
-		 partition=sort(left,right,pivot);
-		 quickSort(left,partition-1);
-		 quickSort(partition,right-1);
-		 }
-	 }
+    private void quickSort(int lowerIndex, int higherIndex) {
+        
+        int i = lowerIndex;
+        int j = higherIndex;
+        // calculate pivot number, I am taking pivot as middle index number
+        int pivot = array[higherIndex];
+        // Divide into two arrays
+        while (i <= j) {
+            while (array[i] < pivot) {
+                i++;
+            }
+            while (array[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+            	int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                //move index to next position on both sides
+                i++;
+                j--;
+            }
+        }
+        if (lowerIndex < j)
+            quickSort(lowerIndex, j);
+        if (i < higherIndex)
+            quickSort(i, higherIndex);
+    }
+ 
+    
 	public void print()
 	{
-		for(int i=0;i<10;i++)
+		for(int i=0;i<1000;i++)
 			System.out.println(array[i]);
 	}
 	
@@ -105,7 +110,7 @@ public class Binary {
 	 public static void main(String args[]) throws IOException{
 	 
 		 int pos;
-		// Random r=new Random();
+		 Random r=new Random();
 		// Scanner sc1=new Scanner(System.in);
 		/* System.out.println("Enter how many elements you want to search in:");
 		 int num=sc1.nextInt();
@@ -113,12 +118,10 @@ public class Binary {
 		 
 		 try{
 			 
-			 FileWriter out=new FileWriter("input.txt");
-			 //for(int i=0;i<1000;i++){
-			 //int random=
-			// System.out.print(r.nextInt(100));
-			 //out.write(random);
-			 //}
+			 PrintWriter out = new PrintWriter(new File("input.txt"));
+			 for(int i=0;i<1000;i++){
+			 out.print(r.nextInt(100)+"\n");
+			 }
 			 out.close();
 			 
 		 }catch(Exception e){
@@ -126,9 +129,11 @@ public class Binary {
 		 }
 		Search obj=new Search();
 		obj.print();
-		pos=obj.search(0, 9);
+		long starttime=System.nanoTime();
+		pos=obj.search(0, 999);
+		long endtime=System.nanoTime();
 		System.out.println("Element found at "+pos);
-		 
+		System.out.println("Execution time "+(endtime-starttime)/1000+"ms");
 	 }
 
 }
